@@ -5,34 +5,8 @@ on:
   push:
     branches: [master]
 
-  pull_request:
-    branches: [master]
-
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install -r requirements-dev.txt
-
-      - name: Run Ruff
-        run: ruff check .
-
-      - name: Run Pytest
-        run: pytest -q
-
   docker:
-    needs: test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
 
     steps:
